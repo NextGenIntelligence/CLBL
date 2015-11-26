@@ -16,7 +16,7 @@ namespace clbl {
             template<typename... Args>
             static constexpr auto result(Args... a) {
                 constexpr auto bools = hana::make_tuple(hana::bool_<Bools>{}...);
-                //todo: make this compile faster
+                //todo: make this compile faster - may prefer to handroll specializations
                 auto args = hana::make_tuple(a...);
                 auto zipped = hana::zip(bools, args);
                 auto result = hana::filter(zipped, [](auto element) {return element[0_c];});
@@ -91,12 +91,12 @@ namespace clbl {
         using call_operator_type = typename context::call_operator_type;
 
         /*
-        free_function_result, member_function_result, and function_object_result are objects
-        of types that define an operator(). However, we use dispatch<...>::result() to only 
-        return the correct object. The incorrect objects have static_assert failures in their
-        templated operator() bodies, which means the user will never be passed an incorrect 
-        result due to a logic error manifesting inside clbl::func (assuming he tries to call 
-        the result, anyway).
+        free_function_result, member_function_result, and function_object_result are all objects
+        with an operator() defined. However, we use dispatch<...>::result() to only return
+        the correct object according to the context determined by the arguments. The incorrect 
+        objects have static_assert failures in their templated operator() bodies, which means 
+        the user will never be passed an incorrect result due to a logic error manifesting inside 
+        clbl::func (assuming the user tries to call the result).
         */
 
         auto free_function_result = free_function<std::remove_pointer_t<TPtr> >{ t };
@@ -129,16 +129,16 @@ namespace clbl {
     }
 
     /*
-    another use case for "Abominable Function Types" besmirched in C++17 proposal P0172R0
+    A real use case for "Abominable Function Types" mentioned in C++17 proposal P0172R0.
     allows a user to choose an operator() overload (including CV qualifiers!)
     */
-    template<typename TAbominableFunctionType>
+    template<typename AbominableFunctionType>
     struct force {
 
         template<typename TPtr>
         static constexpr auto func(TPtr t) {
             using underlying_type = std::remove_cv_t <std::remove_reference_t<decltype(*std::declval<TPtr>())> >;
-            using forced_overload_type = TAbominableFunctionType underlying_type::*;
+            using forced_overload_type = AbominableFunctionType underlying_type::*;
             return clbl::func(t, static_cast<forced_overload_type>(&underlying_type::operator()));
         }
     };

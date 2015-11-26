@@ -73,7 +73,7 @@ namespace clbl {
         template<typename CallableDerived>
         struct as_impl {
 
-            //convert a clbl callable object to a type-erased std::function object
+            //convert a clbl callable object to a type-erased std::function object (or boost::function?)
 
             template<template<class> class TypeErasedFunctionTemplate>
             inline auto as() {
