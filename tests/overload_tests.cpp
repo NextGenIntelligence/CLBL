@@ -1,6 +1,5 @@
 #include "test.h"
-#include "func.h"
-#include "expand_cv.h"
+#include "CLBL/func.h"
 #include "int_char_definitions.h"
 
 using namespace clbl::tests;
