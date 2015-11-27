@@ -1,9 +1,10 @@
 # CLBL
 CLBL is a C++14 header-only library for creating generic, statically dispatched callable objects by wrapping free functions, member functions and callable objects -- *without using type erasure* (yet still convertible to `std::function`). This library is intended to be useful for both template metaprogramming and general C++ programming, with the following goals:
 
-1. Eliminate the semantic barriers separating free functions, member functions, and "callable objects"
-2. Improve performance over type-erased function wrappers like `std::function'
-3. provide metaprogramming facilities for all things callable
+1. Allow creation of callable wrappers with function types deduced for non-overloaded cases
+2. Eliminate the semantic barriers that separate free functions, member functions, and "callable objects"
+3. Improve performance over type-erased function wrappers like `std::function' *(todo - need to add argument binding features, benchmarks)*
+4. provide metaprogramming facilities for all things callable
 
 CLBL is a shortening of the word "callable."
 
@@ -54,7 +55,9 @@ struct overloaded_four_adder {
 int main() {
 ```
 
-Calling `clbl::func` creates a CLBL callable object. The first argument can be a free function pointer. This creates a callable object that forwards to the function:
+Calling `clbl::func` creates a CLBL callable object, without having to specify any type (for non-overloaded cases). Type deduction was the initial motivator for creating this library, since there is no straightforward way (that I know) to create `std::function`s without explicitly specifying types. CLBL employs the non-straightforward way to achieve this, and can be used to create an std::function using entirely deduced types. However, it is possible to do without `std::function`, and may be desirable to do so, especially if you are given free reign with template usage.
+
+The first argument to `clbl::func` can be a free function pointer. This creates a callable object that forwards to the function:
 
 ```cpp
     auto add1 = clbl::func(&add_one);
@@ -186,4 +189,6 @@ Some things I'd like to see as development continues:
 ## Feedback
 - What would you like to see added?
 - What would you like to see changed?
+- Would you like this to be a part of your library?
+- If this looks useful to anyone, let me know and I'll add a license
 - All suggestions, comments, and criticisms are highly appreciated.
