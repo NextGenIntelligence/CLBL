@@ -1,6 +1,8 @@
 # CLBL
 CLBL is a C++14 header-only library for creating generic, statically dispatched callable objects wrapping free functions, member functions and callable objects -- *without using type erasure* (yet still convertible to `std::function`). This library is intended to be useful for both template metaprogramming and general C++ programming.
 
+CLBL is a shortening of the word "callable."
+
 External dependencies: Boost.Hana
 
 Tested using LLVM-vs2014 toolkit in Visual Studio 2015. Compiler support is probably the same as Boost.Hana. So, as far as I know, Clang is the only C++14 compiler that currently supports the features used by CLBL (Novemeber 2015).
