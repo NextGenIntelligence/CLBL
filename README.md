@@ -176,9 +176,9 @@ Some things I'd like to see as development continues:
 - support of other FP fundamentals
 - improve consistency of metaprogramming features
 - improve compile-time performance
-- benchmarks against boost::function, std::function, etc
-- templated functions - is there anything to do here?
-- macro for static_casting overloaded member function overloads? Not sure - I like that macros are currently not used
+- benchmarks against `boost::function`, `std::function`, etc
+- templated functions - is there anything we can even do here? Need to experiment
+- macro for `static_cast`ing overloaded member functions? Not sure - I like that macros are currently not used
 - either remove Boost.Hana dependency, or fully embrace it - currently, only a few features are used
-- cmake support for test files
-- split tests up into multiple compilations (like Boost.Hana's tests) - this would also allow tests to check for static_asserts that are supposed to occur
+- cmake support for compiling the tests
+- split tests up into multiple builds (like Boost.Hana's tests) - this would also allow tests to check for `static_assert`s that are *supposed* to occur, and allow faster development (so we don't always have to build all the tests)
