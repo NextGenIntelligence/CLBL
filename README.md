@@ -182,3 +182,8 @@ Some things I'd like to see as development continues:
 - either remove Boost.Hana dependency, or fully embrace it - currently, only a few features are used
 - cmake support for compiling the tests
 - split tests up into multiple builds (like Boost.Hana's tests) - this would also allow tests to check for `static_assert`s that are *supposed* to occur, and allow faster development (so we don't always have to build all the tests)
+
+## Feedback
+- What would you like to see added?
+- What would you like to see changed?
+- All suggestions, comments, and criticisms are highly appreciated.
