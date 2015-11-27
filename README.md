@@ -166,3 +166,19 @@ other TMP features:
 
 - The `.return_type` member is constexpr shorthand for `boost::hana::type_c<>` of the `return_t` type
 
+
+## The Future
+
+Some things I'd like to see as development continues:
+
+- early partial binding of arguments
+- composability
+- support of other FP fundamentals
+- improve consistency of metaprogramming features
+- improve compile-time performance
+- benchmarks against boost::function, std::function, etc
+- templated functions - is there anything to do here?
+- macro for static_casting overloaded member function overloads? Not sure - I like that macros are currently not used
+- either remove Boost.Hana dependency, or fully embrace it - currently, only a few features are used
+- cmake support for test files
+- split tests up into multiple compilations (like Boost.Hana's tests) - this would also allow tests to check for static_asserts that are supposed to occur
