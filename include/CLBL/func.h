@@ -11,7 +11,7 @@
 namespace clbl {
     namespace detail {
 
-        template<bool... Bools>
+        /*template<bool... Bools>
         struct dispatch {
             template<typename... Args>
             static constexpr auto result(Args... a) {
@@ -21,6 +21,42 @@ namespace clbl {
                 auto zipped = hana::zip(bools, args);
                 auto result = hana::filter(zipped, [](auto element) {return element[0_c];});
                 return result[0_c][1_c];
+            }
+        };*/
+
+        //todo compare above dispatch implementation with this one
+        template<bool, bool, bool, bool>
+        struct dispatch {};
+
+        template<bool R1, bool R2, bool R3>
+        struct dispatch<true, R1, R2, R3> {
+            template<typename Result, typename... Args>
+            static constexpr auto result(Result r, Args...) {
+                return r;
+            }
+        };
+
+        template<bool R2, bool R3>
+        struct dispatch<false, true, R2, R3> {
+            template<typename T0, typename Result, typename... Args>
+            static constexpr auto result(T0 t0, Result r, Args...) {
+                return r;
+            }
+        };
+
+        template<bool R3>
+        struct dispatch<false, false, true, R3> {
+            template<typename T0, typename T1, typename Result, typename T3>
+            static constexpr auto result(T0 t0, T1 t1, Result r, T3 t3) {
+                return r;
+            }
+        };
+
+        template<>
+        struct dispatch<false, false, false, true> {
+            template<typename T0, typename T1, typename T2, typename Result>
+            static constexpr auto result(T0 t0, T1 t1, T2 t2, Result r) {
+                return r;
             }
         };
 
