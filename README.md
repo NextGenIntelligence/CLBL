@@ -121,7 +121,7 @@ Converting to std::function is useful in non-templated code, since the type of `
 
 Presumably, `boost::function` works as well, although I have not yet tested this.
 
-Several compile-time features are provided on a CLBL callable type, which is useful for template metaprogramming.
+A few template metaprogramming features are provided on a CLBL callable type.
 
 ```cpp
     using type1 = decltype(add1);
